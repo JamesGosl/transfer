@@ -40,9 +40,6 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
 
         Socket socket;
         while ((socket = serverSocket.accept()) != null) {
-            // 同客户端保持一致
-            socket.setSoTimeout(configuration.getTransferTimeout());
-
             TransferFileConfiguration.SERVICE.execute(new ServerTask(source, socket, transfer, this));
         }
     }
