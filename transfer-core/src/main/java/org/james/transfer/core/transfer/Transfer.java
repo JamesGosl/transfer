@@ -15,10 +15,9 @@ import java.net.Socket;
  */
 public interface Transfer {
 
-
-    // TODO 传输 文件信息
+    // 传输 文件信息
     void transferMessage(Socket socket, FileInformation information) throws IOException;
 
-    // TODO 传输 文件数据
+    // 传输 文件数据
     void transferStream(Socket socket, FileInformation information) throws IOException;
 }

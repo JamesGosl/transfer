@@ -1,4 +1,4 @@
-package org.james.transfer.dos.progress;
+package org.james.transfer.dos.utils;
 
 import org.james.transfer.conf.TransferConfiguration;
 
@@ -16,9 +16,17 @@ import java.util.stream.Stream;
  * @since 2023/03/14 18:25
  */
 public class FileProgressBar implements Runnable {
-    public static final ThreadLocal<FileProgressBar> PROGRESS_BAR = new ThreadLocal<>();
+    private static final ThreadLocal<FileProgressBar> PROGRESS_BAR = new ThreadLocal<>();
 
     private final TransferConfiguration configuration = TransferConfiguration.getInstance();
+
+    public static void setLocal(FileProgressBar progressBar) {
+        PROGRESS_BAR.set(progressBar);
+    }
+
+    public static FileProgressBar getLocal() {
+        return PROGRESS_BAR.get();
+    }
 
     /**
      * total 数据量

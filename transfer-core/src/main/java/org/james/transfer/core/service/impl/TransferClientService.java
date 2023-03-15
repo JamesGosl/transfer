@@ -26,9 +26,11 @@ public abstract class TransferClientService extends AbstractTransferService<Tran
     public void start() throws IOException {
         socket = new Socket();
         socket.connect(address);
+        // 应不应该加超时？？？
+        // 1. 大数据过不来 就死了
+        // 2. 小数据完事了 堵塞死
         socket.setSoTimeout(configuration.getTransferTimeout());
 
-        doStart();
 
         // 封装数据
         FileInformation information = new FileInformation();

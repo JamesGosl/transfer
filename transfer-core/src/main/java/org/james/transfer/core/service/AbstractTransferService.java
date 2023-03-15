@@ -28,12 +28,15 @@ public abstract class AbstractTransferService<T extends Transfer> implements Tra
         this.address = address;
     }
 
-    protected abstract void doStart() throws IOException;
+    protected abstract void doStart(FileInformation information) throws IOException;
     protected abstract void doStop() throws IOException;
 
     public void transfer(Socket socket, FileInformation information) throws IOException {
         // 发送详情
         transfer.transferMessage(socket, information);
+
+        // 钩子方法
+        doStart(information);
 
         // 发送数据
         transfer.transferStream(socket, information);

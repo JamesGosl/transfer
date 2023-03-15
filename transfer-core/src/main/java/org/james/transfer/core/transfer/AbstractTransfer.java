@@ -26,7 +26,7 @@ public abstract class AbstractTransfer implements Transfer {
     protected final Integer MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8;
 
 
-    // TODO 传输 文件信息
+    // 传输 文件信息
     public void transferMessage(Socket socket, FileInformation information) throws IOException {
         try {
             doTransferMessage(socket, information);
@@ -37,7 +37,7 @@ public abstract class AbstractTransfer implements Transfer {
         }
     }
 
-    // TODO 传输 文件数据
+    // 传输 文件数据
     public void transferStream(Socket socket, FileInformation information) throws IOException {
         try {
             doTransferStream(socket, information);

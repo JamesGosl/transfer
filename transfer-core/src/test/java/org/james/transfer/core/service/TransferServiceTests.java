@@ -26,7 +26,6 @@ public class TransferServiceTests {
 
     @Test
     public void serverTransferServiceTest() throws IOException {
-        File file = new File("C:\\Users\\Combat\\Desktop\\temp\\ideaIU-2021.3.3.exe");
         TransferServer transferServer = new TransferServer() {
             @Override
             protected void transfer(long len, FileInformation information) {
@@ -36,9 +35,9 @@ public class TransferServiceTests {
         InetSocketAddress address = new InetSocketAddress(configuration.getTransferPort());
 
         TransferService transferService =
-                new TransferServerService(transferServer, file, address) {
+                new TransferServerService(transferServer, "ideaIU-2021.3.3.exe", address) {
             @Override
-            protected void doStart() throws IOException {
+            protected void doStart(FileInformation information) throws IOException {
 
             }
 
@@ -63,7 +62,7 @@ public class TransferServiceTests {
 
         TransferService transferService = new TransferClientService(transferClient, address) {
             @Override
-            protected void doStart() throws IOException {
+            protected void doStart(FileInformation information) throws IOException {
 
             }
 

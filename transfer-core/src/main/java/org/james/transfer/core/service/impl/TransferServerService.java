@@ -22,17 +22,23 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
     private final File source;
     private ServerSocket serverSocket;
 
-    public TransferServerService(TransferServer transfer, File source, InetSocketAddress address) {
+    public TransferServerService(TransferServer transfer, String source, InetSocketAddress address) {
         super(transfer, address);
-        this.source = source;
+
+        File file = new File(configuration.getTransferHome(), source);
+        if (file.exists()) {
+            this.source = file;
+        } else {
+            throw new RuntimeException(source + " is no exists !!!");
+        }
     }
 
     @Override
     public void start() throws IOException {
         this.serverSocket = new ServerSocket();
         serverSocket.bind(address);
-
-        doStart();
+        // 同客户端保持一致
+        serverSocket.setSoTimeout(configuration.getTransferTimeout());
 
         Socket socket;
         while ((socket = serverSocket.accept()) != null) {

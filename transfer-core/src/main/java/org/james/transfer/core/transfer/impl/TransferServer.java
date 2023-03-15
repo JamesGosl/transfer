@@ -34,7 +34,6 @@ public abstract class TransferServer extends AbstractTransfer implements Transfe
 
     @Override
     protected void doTransferStream(Socket socket, FileInformation information) throws IOException {
-
         // 获取Path
         Path path = toPath(information);
 

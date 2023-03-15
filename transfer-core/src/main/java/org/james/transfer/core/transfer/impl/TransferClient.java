@@ -24,7 +24,14 @@ public abstract class TransferClient extends AbstractTransfer implements Transfe
         try {
             ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-            information.warp((FileInformation) inputStream.readObject());
+
+            FileInformation fileInformation = (FileInformation) inputStream.readObject();
+
+            // 效验文件是否存在
+            validatePath(fileInformation);
+
+            // 包装
+            information.warp(fileInformation);
 
             // 发送令牌
             fileToken(outputStream);
@@ -35,9 +42,6 @@ public abstract class TransferClient extends AbstractTransfer implements Transfe
 
     @Override
     protected void doTransferStream(Socket socket, FileInformation information) throws IOException {
-        // 效验文件是否存在
-        validatePath(information);
-
         Path path = toPath(information);
 
         // 禁止私自关闭
