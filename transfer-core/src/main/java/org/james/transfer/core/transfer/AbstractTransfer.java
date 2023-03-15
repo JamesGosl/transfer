@@ -7,7 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -20,6 +23,8 @@ import java.nio.file.Paths;
 public abstract class AbstractTransfer implements Transfer {
     private static final Logger LOGGER = LoggerFactory.getLogger(Transfer.class);
     protected TransferConfiguration configuration = TransferConfiguration.getInstance();
+    protected final Integer MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8;
+
 
     // TODO 传输 文件信息
     public void transferMessage(Socket socket, FileInformation information) throws IOException {
@@ -61,6 +66,26 @@ public abstract class AbstractTransfer implements Transfer {
         return file.toPath();
     }
 
+    protected void doStream(InputStream inputStream,
+                            OutputStream outputStream, FileInformation information) throws IOException {
+        int len;
+        byte[] buf = new byte[MAX_BUFFER_SIZE];
+
+        try {
+            // Files 读取
+            while ((len = inputStream.read(buf)) != -1) { //这里会有read 堵塞死 设置超时SocketOptions.SO_TIMEOUT
+                // 进度条
+                transfer(len, information);
+
+                // socket 读出
+                outputStream.write(buf, 0, len);
+            }
+        } catch (SocketTimeoutException e) {
+//            e.printStackTrace();
+        }
+    }
+
     protected abstract void doTransferMessage(Socket socket, FileInformation information) throws IOException;
     protected abstract void doTransferStream(Socket socket, FileInformation information) throws IOException;
+    protected abstract void transfer(long len, final FileInformation information);
 }

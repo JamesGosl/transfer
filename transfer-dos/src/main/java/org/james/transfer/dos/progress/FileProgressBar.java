@@ -1,4 +1,4 @@
-package org.james.transfer.file.progress;
+package org.james.transfer.dos.progress;
 
 import org.james.transfer.conf.TransferConfiguration;
 
@@ -10,10 +10,14 @@ import java.util.stream.Stream;
  *  65%[==================================================================>                                 ]xxx
  * 100%[====================================================================================================]xxx
  *
+ * 这个类应该出现在DOS 里面 Web PC 用不到
+ *
  * @author James Gosl
  * @since 2023/03/14 18:25
  */
 public class FileProgressBar implements Runnable {
+    public static final ThreadLocal<FileProgressBar> PROGRESS_BAR = new ThreadLocal<>();
+
     private final TransferConfiguration configuration = TransferConfiguration.getInstance();
 
     /**

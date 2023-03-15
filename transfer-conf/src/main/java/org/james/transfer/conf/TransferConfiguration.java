@@ -27,28 +27,34 @@ public class TransferConfiguration {
     private final int transferThread;
     private final int transferPort;
     private final long transferProgress;
+    private final int transferTimeout;
 
     private TransferConfiguration() {
         Properties properties = ResourcesUtils.getProperties(SETTING_PROPERTIES);
-        // 异常或空 均为桌面
+        // 工作目录
         this.transferHome =
                 ConvertUtils.convertFile(properties.getProperty(TRANSFER_HOME),
                         () -> FileSystemView.getFileSystemView().getHomeDirectory().getPath());
 
-        // 异常或空 均为(CPU 核心数 + 1)
+        // 核心线程数
         this.transferThread =
                 ConvertUtils.convertInteger(properties.getProperty(TRANSFER_THREAD),
                         () -> Runtime.getRuntime().availableProcessors() + 1);
 
-        // 异常或空 均为1024
+        // 连接端口
         this.transferPort =
                 ConvertUtils.convertInteger(properties.getProperty(TRANSFER_PORT),
                         () -> 1024);
 
-        // 异常或空 均为300L
+        // 进度条延迟
         this.transferProgress =
                 ConvertUtils.convertLong(properties.getProperty(TRANSFER_PROGRESS),
                         () -> 300L);
+
+        // 读写超时
+        this.transferTimeout =
+                ConvertUtils.convertInteger(properties.getProperty(TRANSFER_TIMEOUT),
+                        () -> 1000);
 
         if (logger.isInfoEnabled()) {
             logger.info(toString());
@@ -81,6 +87,10 @@ public class TransferConfiguration {
         return transferProgress;
     }
 
+    public int getTransferTimeout() {
+        return transferTimeout;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -88,6 +98,7 @@ public class TransferConfiguration {
                 ", transferThread=" + transferThread +
                 ", transferPort=" + transferPort +
                 ", transferProgress=" + transferProgress +
+                ", transferTimeout=" + transferTimeout +
                 '}';
     }
 }

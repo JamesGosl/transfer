@@ -17,6 +17,11 @@
     <description>Transfer Dos in I/O Network</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.james.transfer</groupId>
+            <artifactId>transfer-core</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <dependency>
             <groupId>org.slf4j</groupId>

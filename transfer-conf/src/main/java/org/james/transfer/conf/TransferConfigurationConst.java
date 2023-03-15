@@ -12,4 +12,5 @@ public interface TransferConfigurationConst {
     String TRANSFER_THREAD = "transfer_thread";
     String TRANSFER_PORT = "transfer_port";
     String TRANSFER_PROGRESS = "transfer_progress";
+    String TRANSFER_TIMEOUT = "transfer_timeout";
 }

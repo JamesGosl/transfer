@@ -36,7 +36,7 @@ public class ZeroCopyClients {
     // 3.36 GB (3,612,586,084 字节)
     private final static File SOURCE_FILE = new File("C:\\Users\\Combat\\Desktop\\尚硅谷宋红康Java核心基础_好评如潮（30天入门）.zip");
 
-    private static final String HOST = "192.168.137.43";
+    private static final String HOST = "172.20.10.2";
     private static final Integer PORT = 1024;
 
     public static void main(String[] args) throws IOException, InterruptedException {
