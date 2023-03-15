@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="transfer-file" />
+        <module name="transfer-test" />
+        <module name="transfer-utils" />
+        <module name="transfer-conf" />
+        <module name="transfer-dos" />
+        <module name="transfer-core" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="transfer-conf" target="8" />
+      <module name="transfer-core" target="8" />
+      <module name="transfer-dos" target="8" />
+      <module name="transfer-file" target="8" />
+      <module name="transfer-parent" target="8" />
+      <module name="transfer-test" target="8" />
+      <module name="transfer-utils" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

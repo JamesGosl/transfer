@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/transfer-dos/pom.xml" />
+        <option value="$PROJECT_DIR$/transfer-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/transfer-core/pom.xml" />
+        <option value="$PROJECT_DIR$/transfer-conf/pom.xml" />
+        <option value="$PROJECT_DIR$/transfer-file/pom.xml" />
+        <option value="$PROJECT_DIR$/transfer-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/transfer-test/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

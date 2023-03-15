@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/transfer.iml" filepath="$PROJECT_DIR$/.idea/transfer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-conf/transfer-conf.iml" filepath="$PROJECT_DIR$/transfer-conf/transfer-conf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-core/transfer-core.iml" filepath="$PROJECT_DIR$/transfer-core/transfer-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-dos/transfer-dos.iml" filepath="$PROJECT_DIR$/transfer-dos/transfer-dos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-file/transfer-file.iml" filepath="$PROJECT_DIR$/transfer-file/transfer-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-parent/transfer-parent.iml" filepath="$PROJECT_DIR$/transfer-parent/transfer-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-test/transfer-test.iml" filepath="$PROJECT_DIR$/transfer-test/transfer-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/transfer-utils/transfer-utils.iml" filepath="$PROJECT_DIR$/transfer-utils/transfer-utils.iml" />
+    </modules>
+  </component>
+</project>
