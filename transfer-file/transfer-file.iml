@@ -12,10 +12,10 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="transfer-conf" />
+    <orderEntry type="module" module-name="transfer-utils" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.36" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.11" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.2.11" level="project" />
-    <orderEntry type="module" module-name="transfer-utils" />
     <orderEntry type="library" name="Maven: org.msgpack:msgpack:0.6.12" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.1-GA" level="project" />

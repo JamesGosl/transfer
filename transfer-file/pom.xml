@@ -23,11 +23,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.james.transfer</groupId>
-            <artifactId>transfer-utils</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.msgpack</groupId>
             <artifactId>msgpack</artifactId>
         </dependency>

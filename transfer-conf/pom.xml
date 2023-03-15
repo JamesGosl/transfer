@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.james.transfer</groupId>
-            <artifactId>transfer-file</artifactId>
+            <artifactId>transfer-utils</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
