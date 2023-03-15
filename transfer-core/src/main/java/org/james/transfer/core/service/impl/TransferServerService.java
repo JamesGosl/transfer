@@ -37,11 +37,12 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
     public void start() throws IOException {
         this.serverSocket = new ServerSocket();
         serverSocket.bind(address);
-        // 同客户端保持一致
-        serverSocket.setSoTimeout(configuration.getTransferTimeout());
 
         Socket socket;
         while ((socket = serverSocket.accept()) != null) {
+            // 同客户端保持一致
+            socket.setSoTimeout(configuration.getTransferTimeout());
+
             TransferFileConfiguration.SERVICE.execute(new ServerTask(source, socket, transfer, this));
         }
     }
