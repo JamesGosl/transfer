@@ -29,6 +29,13 @@
 ## Transfer Configuration Priority
 Dos -> Settings -> Code
 
+---
+## Transfer Dos Use
+1. Server Dos `server ${fileName}`
+2. Client Dos `client ${remoteIP}`
+3. `${fileName}` is transfer_home in exists
+4. `${remoteIP}` is Reachable available
+
 
 
 
