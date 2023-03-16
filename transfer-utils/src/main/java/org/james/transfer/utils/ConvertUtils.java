@@ -13,7 +13,6 @@ import java.util.function.Supplier;
  */
 public class ConvertUtils {
 
-
     /**
      * 字符转换 File
      *
@@ -28,6 +27,13 @@ public class ConvertUtils {
         }
 
         return file;
+    }
+
+    public static String convertFileName(File file, Supplier<String> defaultFile) {
+        if (!file.exists()) {
+            return defaultFile.get();
+        }
+        return file.getName();
     }
 
     /**

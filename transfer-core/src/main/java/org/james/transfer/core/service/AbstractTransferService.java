@@ -17,8 +17,6 @@ import java.net.Socket;
  * @since 2023/03/15 22:28
  */
 public abstract class AbstractTransferService<T extends Transfer> implements TransferService {
-    protected final static Logger LOGGER = LoggerFactory.getLogger(TransferService.class);
-
     protected final TransferConfiguration configuration = TransferConfiguration.getInstance();
     protected final T transfer;
     protected final InetSocketAddress address;
@@ -26,6 +24,15 @@ public abstract class AbstractTransferService<T extends Transfer> implements Tra
     public AbstractTransferService(T transfer, InetSocketAddress address) {
         this.transfer = transfer;
         this.address = address;
+
+        // 钩子方法
+        Runtime.getRuntime().addShutdownHook(new Thread(()->{
+            try {
+                stop();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
     }
 
     protected abstract void doStart(FileInformation information) throws IOException;

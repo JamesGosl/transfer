@@ -75,6 +75,14 @@
                 <version>${logback.version}</version>
             </dependency>
 
+<!--            解决logback 不高亮 -->
+            <!-- https://mvnrepository.com/artifact/org.fusesource.jansi/jansi -->
+            <dependency>
+                <groupId>org.fusesource.jansi</groupId>
+                <artifactId>jansi</artifactId>
+                <version>1.17.1</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

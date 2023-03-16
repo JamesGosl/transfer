@@ -8,7 +8,9 @@ import org.james.transfer.dos.service.TransferDosClientService;
 import org.james.transfer.dos.service.TransferDosServerService;
 import org.james.transfer.dos.transfer.TransferDosClient;
 import org.james.transfer.dos.transfer.TransferDosServer;
+import org.james.transfer.utils.ConvertUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
@@ -46,22 +48,36 @@ public class TransferDosMain {
     }
 
     public static void startServer(String source) throws IOException {
+        // 验证 source
+        source = ConvertUtils.convertFileName(new File(CONFIGURATION.getTransferHome(), source),
+                () -> {throw new RuntimeException("File not is exists !!!");});
+
         InetSocketAddress address = new InetSocketAddress(CONFIGURATION.getTransferPort());
-
         TransferServer transferServer = new TransferDosServer();
-
         TransferService transferServerService =
                 new TransferDosServerService(transferServer, source, address);
 
-        transferServerService.start();
+        lifeCycle(transferServerService);
     }
 
     public static void startClient(String remote) throws IOException {
-        InetSocketAddress address = new InetSocketAddress(remote, CONFIGURATION.getTransferPort());
+        // 验证 remote
+        InetSocketAddress address = new InetSocketAddress(
+                ConvertUtils.convertRemote(remote,
+                        () -> {throw new RuntimeException("Remote not is Reachable !!!");}),
+                CONFIGURATION.getTransferPort());
 
         TransferClient transferClient = new TransferDosClient();
         TransferService transferClientService = new TransferDosClientService(transferClient, address);
 
-        transferClientService.start();
+        lifeCycle(transferClientService);
+    }
+
+    private static void lifeCycle(TransferService transferService) throws IOException {
+        try {
+            transferService.start();
+        } finally {
+            transferService.stop();
+        }
     }
 }

@@ -3,9 +3,12 @@ package org.james.transfer.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Properties;
 
 /**
@@ -49,10 +52,21 @@ public class ResourcesUtils {
     }
 
     public static InputStream getResourceAsStream(String name) {
-        InputStream resourceAsStream
-                = ResourcesUtils.class.getClassLoader().getResourceAsStream(name);
+        String configPath = "";
+        try {
+            // 适配 jar 和ide
+            URL resource = ResourcesUtils.class.getClassLoader().getResource(name);
+            String protocol = resource.getProtocol();
+            if (protocol.equals("file")) {
+                configPath = URLDecoder.decode(resource.getPath(), "UTF-8");
+            } else {
+                configPath = new File(name).getAbsolutePath();
+            }
 
-        return checkNull(resourceAsStream, name);
+            return checkNull(new FileInputStream(configPath), name);
+        } catch (Exception e) {
+            throw new RuntimeException("配置文件未找到");
+        }
     }
 
     public static <T> T checkNull(T obj, String name) {

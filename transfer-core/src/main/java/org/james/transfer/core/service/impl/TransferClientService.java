@@ -3,6 +3,7 @@ package org.james.transfer.core.service.impl;
 import org.james.transfer.core.service.AbstractTransferService;
 import org.james.transfer.core.service.TransferService;
 import org.james.transfer.core.transfer.impl.TransferClient;
+import org.james.transfer.file.TransferFileConfiguration;
 import org.james.transfer.file.message.FileInformation;
 
 import java.io.IOException;
@@ -41,9 +42,11 @@ public abstract class TransferClientService extends AbstractTransferService<Tran
 
     @Override
     public void stop() throws IOException {
-        if (socket.isClosed()) {
+        if (socket != null && !socket.isClosed()) {
             socket.close();
         }
+
+        TransferFileConfiguration.SERVICE.shutdown();
         doStop();
     }
 }

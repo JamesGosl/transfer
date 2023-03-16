@@ -47,9 +47,11 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
 
     @Override
     public void stop() throws IOException {
-        if (serverSocket.isClosed()) {
+        if (serverSocket != null && !serverSocket.isClosed()) {
             serverSocket.close();
         }
+
+        TransferFileConfiguration.SERVICE.shutdown();
         doStop();
     }
 
@@ -80,6 +82,14 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
                 transferService.transfer(socket, information);
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if(!socket.isClosed()) {
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
