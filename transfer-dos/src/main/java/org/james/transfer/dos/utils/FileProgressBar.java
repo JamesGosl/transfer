@@ -20,6 +20,8 @@ public class FileProgressBar implements Runnable {
 
     private final TransferConfiguration configuration = TransferConfiguration.getInstance();
 
+    private final Thread thread;
+
     public static void setLocal(FileProgressBar progressBar) {
         PROGRESS_BAR.set(progressBar);
     }
@@ -42,6 +44,19 @@ public class FileProgressBar implements Runnable {
     public FileProgressBar(long total, String fileName) {
         this.total = total;
         this.fileName = fileName;
+        this.thread = new Thread(this);
+    }
+
+    public void start() {
+        if (!thread.isAlive()) {
+            thread.start();
+        }
+    }
+
+    public void stop() {
+        if(!thread.isInterrupted()) {
+            thread.interrupt();
+        }
     }
 
     /**
@@ -59,11 +74,16 @@ public class FileProgressBar implements Runnable {
 
     @Override
     public void run() {
-        while (print()) {
+        // 线程池调用的
+        while (print() && !thread.isInterrupted()) {
             try {
                 Thread.sleep(configuration.getTransferProgress());
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                // Thread.currentThread().interrupt(); 会打断Thread.sleep(...)
+//                e.printStackTrace();
+
+                // 重新打标识
+                thread.interrupt();
             }
         }
         System.out.println();

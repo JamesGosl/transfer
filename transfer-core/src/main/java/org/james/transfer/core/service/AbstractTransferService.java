@@ -36,16 +36,22 @@ public abstract class AbstractTransferService<T extends Transfer> implements Tra
     }
 
     protected abstract void doStart(FileInformation information) throws IOException;
-    protected abstract void doStop() throws IOException;
+    protected abstract void doStop(FileInformation information) throws IOException;
 
     public void transfer(Socket socket, FileInformation information) throws IOException {
         // 发送详情
         transfer.transferMessage(socket, information);
 
         // 钩子方法
+        // 1. doStart/doStop 应该每次transfer 都进行操作
+        // 2. 能够让扩展模块在文件传输前后 都有操作 (例如 Dos 模块中的进度条)
         doStart(information);
 
         // 发送数据
-        transfer.transferStream(socket, information);
+        try {
+            transfer.transferStream(socket, information);
+        } finally {
+            doStop(information);
+        }
     }
 }

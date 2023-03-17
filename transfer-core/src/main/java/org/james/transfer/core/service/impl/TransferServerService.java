@@ -5,6 +5,8 @@ import org.james.transfer.core.service.TransferService;
 import org.james.transfer.core.transfer.impl.TransferServer;
 import org.james.transfer.file.TransferFileConfiguration;
 import org.james.transfer.file.message.FileInformation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,12 +53,12 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
             serverSocket.close();
         }
 
-        TransferFileConfiguration.SERVICE.shutdown();
-        doStop();
+        TransferFileConfiguration.SERVICE.shutdownNow();
     }
 
 
     static class ServerTask implements Runnable {
+        private final Logger logger = LoggerFactory.getLogger(this.getClass());
         final File file;
         final Socket socket;
         final TransferServer transfer;
@@ -81,13 +83,16 @@ public abstract class TransferServerService extends AbstractTransferService<Tran
                 // 传输数据
                 transferService.transfer(socket, information);
             } catch (IOException e) {
-                e.printStackTrace();
+                if (logger.isErrorEnabled()) {
+                    logger.error("Remote[{}] client Error !!!", socket.getRemoteSocketAddress());
+                }
             } finally {
+                // 关闭Socket
                 if(!socket.isClosed()) {
                     try {
                         socket.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
                     }
                 }
             }

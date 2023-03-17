@@ -9,6 +9,8 @@ import org.james.transfer.dos.service.TransferDosServerService;
 import org.james.transfer.dos.transfer.TransferDosClient;
 import org.james.transfer.dos.transfer.TransferDosServer;
 import org.james.transfer.utils.ConvertUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +23,11 @@ import java.net.InetSocketAddress;
  * @since 2023/03/15 23:18
  */
 public class TransferDosMain {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransferDosMain.class);
     private static final TransferConfiguration CONFIGURATION = TransferConfiguration.getInstance();
 
     // 命令行输入
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // ["server", "xxx.xx"]
         // ["client", "127.0.0.1"]
 
@@ -35,15 +38,21 @@ public class TransferDosMain {
             throw new RuntimeException("Program arguments is error !!!");
         }
 
-        switch (args[0]) {
-            case "server":
-                startServer(args[1]);
-                break;
-            case "client":
-                startClient(args[1]);
-                break;
-            default:
-                throw new RuntimeException("Program arguments is error !!!");
+        try {
+            switch (args[0]) {
+                case "server":
+                    startServer(args[1]);
+                    break;
+                case "client":
+                    startClient(args[1]);
+                    break;
+                default:
+                    throw new RuntimeException("Program arguments is error !!!");
+            }
+        } catch (IOException e) {
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error(e.getMessage());
+            }
         }
     }
 

@@ -46,7 +46,6 @@ public abstract class TransferClientService extends AbstractTransferService<Tran
             socket.close();
         }
 
-        TransferFileConfiguration.SERVICE.shutdown();
-        doStop();
+        TransferFileConfiguration.SERVICE.shutdownNow();
     }
 }

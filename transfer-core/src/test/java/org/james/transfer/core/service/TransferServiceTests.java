@@ -42,7 +42,7 @@ public class TransferServiceTests {
             }
 
             @Override
-            protected void doStop() throws IOException {
+            protected void doStop(FileInformation information) throws IOException {
 
             }
         };
@@ -67,7 +67,7 @@ public class TransferServiceTests {
             }
 
             @Override
-            protected void doStop() throws IOException {
+            protected void doStop(FileInformation information) throws IOException {
 
             }
         };

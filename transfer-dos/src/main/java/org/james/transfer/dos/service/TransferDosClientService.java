@@ -2,6 +2,7 @@ package org.james.transfer.dos.service;
 
 import org.james.transfer.core.service.impl.TransferClientService;
 import org.james.transfer.core.transfer.impl.TransferClient;
+import org.james.transfer.dos.utils.FileProgressBar;
 import org.james.transfer.file.message.FileInformation;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class TransferDosClientService extends TransferClientService implements T
     }
 
     @Override
-    protected void doStop() throws IOException {
-
+    protected void doStop(FileInformation information) throws IOException {
+        destroyFileProgressBar();
     }
 }

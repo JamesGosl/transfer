@@ -18,13 +18,17 @@ public interface TransferDosService {
                 new FileProgressBar(information.getFileLength(), information.getFileName());
 
         // 启动进度条
-        startFileProgressBar(fileProgressBar);
+        fileProgressBar.start();
 
         // 线程本地存储
         FileProgressBar.setLocal(fileProgressBar);
     }
 
-    default void startFileProgressBar(FileProgressBar fileProgressBar) {
-        TransferFileConfiguration.SERVICE.execute(fileProgressBar);
+    // 销毁进度条
+    default void destroyFileProgressBar() {
+        FileProgressBar fileProgressBar = FileProgressBar.getLocal();
+        if (fileProgressBar != null) {
+            fileProgressBar.stop();
+        }
     }
 }

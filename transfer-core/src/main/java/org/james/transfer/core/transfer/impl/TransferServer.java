@@ -8,6 +8,7 @@ import org.james.transfer.file.message.FileToken;
 import java.io.*;
 import java.net.Socket;
 import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
 import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,6 +43,7 @@ public abstract class TransferServer extends AbstractTransfer implements Transfe
         ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
 
         try (
+                // 直接内存
                 SeekableByteChannel sbc = Files.newByteChannel(path);
                 InputStream in = Channels.newInputStream(sbc);
         ) {
